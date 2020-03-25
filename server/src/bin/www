@@ -1,0 +1,67 @@
+#!/usr/bin/env node // force file to be an executable script
+
+// importing module dependencies
+const app = require("../app") // import configured routes
+const http = require("http") // import HTTP's server configuration
+const debug = require("debug")("server:server") // create debug's messages structure
+
+// get port from OS and set as app's default
+const port = normalizePort(process.env.PORT || "3000")
+app.set("port", port)
+
+// create HTTP server
+const server = http.createServer(app) // pass routes to create server
+
+server.listen(port) // listen to provided port
+server.on("error", onError) // listener that throws error message
+server.on("listening", onListening) // listener for HTTP server & debug
+
+/* function's definition */
+
+// test valid ports
+function normalizePort(val) {
+    const port = parseInt(val, 10) // convert value into a decimal-base number
+    
+    // check if returned value is OS' port (int)
+    if (!isNaN(port)) {
+        return port // return environment's port
+    }
+
+    // check if returned value is default port (string)
+    if (typeof port === typeof "") {
+        return val // return default port
+    }
+
+    return false // both ports busy
+}
+
+// event listener for HTTP server "error" event
+function onError(error) {
+    if (error.syscall !== "listen") {
+        throw error // throw error to debug
+    }
+    
+    // set port message
+    const bind = typeof port === "string" ? "Pipe " + port : "Port " + port
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case "EACCES":
+            console.error(bind + " requires elevated privileges")
+            process.exit(1)
+        break
+        case "EADDRINUSE":
+            console.error(bind + " is already in use")
+            process.exit(1)
+        break
+        default:
+            throw error
+    }
+}
+
+// event listener for HTTP server "listening" event
+function onListening() {
+    const addr = server.address()
+    const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port
+    debug(`Listening on ${bind} => http://localhost:${port}`)
+}
