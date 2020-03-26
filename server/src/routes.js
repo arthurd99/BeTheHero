@@ -3,11 +3,9 @@ const express = require("express")
 const ongController = require("./controllers/ONGController")
 const router = express()
 
-// list existent ongs
-router.get("/ongs", ongController.index)
-
-// create new ong
-router.post("/ongs", ongController.create)
+// controlling ONG routes
+router.get("/ongs", ongController.index) // list existent ongs
+router.post("/ongs", ongController.create) // create new ong
 
 // exports module's router
 module.exports = router

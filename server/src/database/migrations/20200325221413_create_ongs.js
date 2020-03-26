@@ -1,4 +1,5 @@
-exports.up = function(knex) {
+// exports.up to create
+exports.up = knex => {
     return knex.schema.createTable("ongs", table => {
         table.string("id").primary()
         table.string("name").notNullable()
@@ -9,6 +10,7 @@ exports.up = function(knex) {
     })
 }
 
-exports.down = function(knex) {
+// exports.down to revert
+exports.down = knex => {
     return knex.schema.dropTable("ongs")
 }
