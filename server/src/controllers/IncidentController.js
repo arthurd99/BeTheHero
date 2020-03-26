@@ -17,7 +17,27 @@ module.exports = {
     },
 
     async index(req, res) {
-        const incidents = await connection("incidents").select("*")
+
+        const { page = 1 } = req.query
+        const [count] = await connection("incidents").count()
+        const limPage = 5
+
+        const incidents = await connection("incidents")
+            .select([
+                "incidents.*",
+                "ongs.name",
+                "ongs.email",
+                "ongs.whatsapp",
+                "ongs.city",
+                "ongs.uf"
+            ])
+            .join("ongs", "ongs.id", "=", "incidents.ong_id") // gather registers from different tables
+            .limit(limPage)
+            .offset((page - 1) * limPage)
+
+        /* when making pagination, the amount of items in database
+        is sent to front-end through the response's header */
+        res.header("X-Total-Count", count["count(*)"])
 
         return res.json(incidents)
     },
