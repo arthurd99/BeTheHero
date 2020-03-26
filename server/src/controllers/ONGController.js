@@ -22,5 +22,24 @@ module.exports = {
 
         // returns id in order to verify if it has been created
         return res.json({id})
+    },
+
+    async delete(req, res) {
+        const { id } = req.params
+        const authId = req.headers.authorization
+        const ong = await connection("ongs")
+            .select("id")
+            .where("id", id)
+            .first()
+
+        if ((ong.id !== authId) || (id !== authId)) {
+            return res.status(401).json({error: "Operation not allowed"})
+        }
+
+        await connection("ongs")
+            .delete()
+            .where("id", id)
+
+        return res.status(204).send()
     }
 }
