@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false })) // use query string
 app.use(cookieParser()) // parse HTTP request cookies
 
 // add routes to server
-app.use('/', routes)
+app.use(routes)
 
 // exports module
 module.exports = app
