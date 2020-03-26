@@ -1,9 +1,9 @@
 // importing module dependencies
-const express = require("express")
+const router = require("express")()
 const ongController = require("./controllers/ONGController")
 const incidentController = require("./controllers/IncidentController")
 const profileController = require("./controllers/ProfileController")
-const router = express()
+const sessionController = require("./controllers/SessionController")
 
 // controlling ONG routes
 router.get("/ongs", ongController.index) // list existent ongs
@@ -17,6 +17,9 @@ router.delete("/incidents/:id", incidentController.delete)
 
 // controlling Profile routes
 router.get("/profile/:id", profileController.index)
+
+// controlling Session routes
+router.post("/sessions", sessionController.create)
 
 // exports module's router
 module.exports = router
