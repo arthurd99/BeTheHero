@@ -5,7 +5,7 @@ const app = require("../app") // import configured routes
 const http = require("http") // import HTTP's server configuration
 const debug = require("debug")("server:server") // create debug's messages structure
 
-// get port from OS and set as app's default
+// get port from OS and set as app's default or 3000 port
 const port = normalizePort(process.env.PORT || "3000")
 app.set("port", port)
 
@@ -16,8 +16,7 @@ server.listen(port) // listen to provided port
 server.on("error", onError) // listener that throws error message
 server.on("listening", onListening) // listener for HTTP server & debug
 
-/* function's definition */
-
+/** function's definition */
 // test valid ports
 function normalizePort(val) {
     const port = parseInt(val, 10) // convert value into a decimal-base number

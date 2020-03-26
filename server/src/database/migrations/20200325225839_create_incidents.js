@@ -1,7 +1,8 @@
 // exports.up to create
 exports.up = knex => {
+    // creates a table in database with the following features
     return knex.schema.createTable("incidents", table => {
-        table.increments() // adds an auto incrementing column
+        table.increments() // adds an auto incrementing column called "id"
         table.string("title").notNullable()
         table.string("description").notNullable()
         table.decimal("value").notNullable()
@@ -11,7 +12,7 @@ exports.up = knex => {
     })
 }
 
-// exports.down to revert
+// exports.down to revert operation
 exports.down = function(knex) {
     return knex.schema.dropTable("incidents")
 }
