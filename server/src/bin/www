@@ -6,7 +6,7 @@ const http = require("http") // import HTTP's server configuration
 const debug = require("debug")("server:server") // create debug's messages structure
 
 // get port from OS and set as app's default or 3000 port
-const port = normalizePort(process.env.PORT || "3000")
+const port = normalizePort(process.env.PORT || "3333")
 app.set("port", port)
 
 // create HTTP server

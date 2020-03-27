@@ -6,9 +6,9 @@ exports.up = knex => {
         table.string("title").notNullable()
         table.string("description").notNullable()
         table.decimal("value").notNullable()
-        table.string("ong_id").notNullable()
-        // creates a foreign key "ong_id" that references the column "id" from "ongs" table
-        table.foreign("ong_id").references("id").inTable("ongs")
+        // creates a foreign key "ngo_id" that references the column "id" from "ngos" table
+        table.string("ngo_id").notNullable()
+        table.foreign("ngo_id").references("id").inTable("ngos")
     })
 }
 

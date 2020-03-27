@@ -11,9 +11,10 @@ module.exports = {
 
         // get ID from database inserted register array
         const [ id ] = await connection("incidents").insert({
-            title, description, value, ong_id: authId
-        }).catch(err => {
-            return res.json(err)
+            title,
+            description,
+            value,
+            ngo_id: authId
         })
 
         // return ID from created incident
@@ -28,19 +29,19 @@ module.exports = {
         // amount of registers per page
         const limPage = 5
 
-        // get incidents data gathered with ONG's data table
+        // get incidents data gathered with ngo's data table
         const incidents = await connection("incidents")
             .select([
                 "incidents.*", // select all columns from incident's table
-                // filter selected from ONGs' table
-                "ongs.name",
-                "ongs.email",
-                "ongs.whatsapp",
-                "ongs.city",
-                "ongs.uf"
+                // filter selected from ngos' table
+                "ngos.name",
+                "ngos.email",
+                "ngos.whatsapp",
+                "ngos.city",
+                "ngos.uf"
             ])
-            // join "ongs" columns table with "incident" columns table through their primary/foreign keys
-            .join("ongs", "ongs.id", "=", "incidents.ong_id")
+            // join "ngos" columns table with "incident" columns table through their primary/foreign keys
+            .join("ngos", "ngos.id", "=", "incidents.ngo_id")
             // limits amount of data per page
             .limit(limPage)
             // first positon out of the amount selected to be returned from database
@@ -58,15 +59,15 @@ module.exports = {
         // get id from URL parameters
         const { id } = req.params
         // get ID from request's header
-        const ongId = req.headers.authorization
+        const ngoId = req.headers.authorization
         // try to get the incidents from database table
         const incident = await connection("incidents")
-            .select("ong_id")
+            .select("ngo_id")
             .where("id", id)
             .first() // get only the first value from returned array
 
         // check if ID from header and from database are the same
-        if (incident.ong_id !== ongId) {
+        if (incident.ngo_id !== ngoId) {
             // returns status 401 (unauthorized) and a JSON the with error message
             return res.status(401).json({error: "Operation not allowed"})
         }

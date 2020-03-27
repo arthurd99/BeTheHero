@@ -7,8 +7,8 @@ module.exports = {
         // get id from body's request
         const { id } = req.body
 
-        // try to get registers from "ong" table
-        const ong = await connection("ongs")
+        // try to get registers from "ngo" table
+        const ngo = await connection("ngos")
             .select("name")
             .where("id", id)
             .first() // get only the first value from returned array
@@ -17,11 +17,11 @@ module.exports = {
             })
 
         // check if it were returned any registers
-        if (!ong) {
-            return res.status(400).json({error: `No ONGs were found with ID ${id}`})
+        if (!ngo) {
+            return res.status(400).json({error: `No ngos were found with ID ${id}`})
         }
 
         // returns a json with the registers
-        return res.json(ong)
+        return res.json(ngo)
     }
 }

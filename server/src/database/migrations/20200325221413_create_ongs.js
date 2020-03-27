@@ -1,7 +1,7 @@
 // exports.up to create
 exports.up = knex => {
     // creates a table in database with the following features
-    return knex.schema.createTable("ongs", table => {
+    return knex.schema.createTable("ngos", table => {
         table.string("id").primary()
         table.string("name").notNullable()
         table.string("email").notNullable()
@@ -13,5 +13,5 @@ exports.up = knex => {
 
 // exports.down to revert operation
 exports.down = knex => {
-    return knex.schema.dropTable("ongs")
+    return knex.schema.dropTable("ngos")
 }

@@ -1,7 +1,16 @@
 import React from "react"
 
-function App() {
-    return (<h1>Be The Hero!</h1>)
-}
+// import default CSS
+import "./global.css"
 
+// import routes
+import Routes from "./Routes"
+
+// App component
+function App() {
+    // HTML returned when the component is rendered
+    return ( <Routes /> )
+}
+  
+// Exports app
 export default App

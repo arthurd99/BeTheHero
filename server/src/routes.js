@@ -1,14 +1,14 @@
 // importing module dependencies
 const router = require("express")() // import router function only
-const ongController = require("./controllers/ONGController")
+const ngoController = require("./controllers/NGOController")
 const incidentController = require("./controllers/IncidentController")
 const profileController = require("./controllers/ProfileController")
 const sessionController = require("./controllers/SessionController")
 
-// controlling ONG routes
-router.post("/ongs", ongController.create) // create new ONG
-router.get("/ongs", ongController.index) // list existent ONGs
-router.delete("/ongs/:id", ongController.delete) // deletes an ONG
+// controlling ngo routes
+router.post("/ngos", ngoController.create) // create new ngo
+router.get("/ngos", ngoController.index) // list existent ngos
+router.delete("/ngos/:id", ngoController.delete) // deletes an ngo
 
 // controlling Incident routes
 router.post("/incidents", incidentController.create) // create new incidents
@@ -16,10 +16,10 @@ router.get("/incidents", incidentController.index) // list new incidents
 router.delete("/incidents/:id", incidentController.delete) // delete an incident
 
 // controlling Profile routes
-router.get("/profile/:id", profileController.index) // list incidents of an ONG
+router.get("/profile", profileController.index) // list incidents of an ngo
 
 // controlling Session routes
-router.post("/sessions", sessionController.create) // check ONG's login
+router.post("/sessions", sessionController.create) // check ngo's login
 
 // exports module's router
 module.exports = router
