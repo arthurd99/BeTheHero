@@ -16,7 +16,7 @@ The following technologies had been used in order to build this project:
 - **validations:** Celebrate/Jest
 - **tests:** Supertest
 
-###Here some samples of its interface on web
+### Here some samples of its interface on web
 
 #### Homepage:
 ![homepage](./images/web-home.png)
