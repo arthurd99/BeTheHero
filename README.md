@@ -1,6 +1,5 @@
 ![](./images/be-the-hero.svg)
 
-![Node.js CI](./.github/workflows/nodejs.yml)
 This full stack project  had been developed during the **Semana Omnistack 11**.
 The objective is to create a website where NGOs can register a currency help
 and people can donate them money.
