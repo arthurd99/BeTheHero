@@ -1,3 +1,12 @@
-.vscode/
-server/node_modules/.bin/atob
-server/node_modules/.bin/atob
+/.vscode
+
+/mobile/.expo
+/mobile/node_modules/
+/mobile/package-lock.json
+
+/server/node_modules/
+/server/package-lock.json
+/server/src/database/db.sqlite
+
+/web/node_modules/
+/web/package-lock.json
