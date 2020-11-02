@@ -8,8 +8,8 @@ import Routes from "./Routes"
 
 // App component
 function App() {
-    // HTML returned when the component is rendered
-    return ( <Routes /> )
+	// HTML returned when the component is rendered
+	return ( <Routes /> )
 }
   
 // Exports app

@@ -51,8 +51,8 @@ function NewIncident() {
             <div className="content">
                 <section>
                     <img src={logoImg} alt="Be The Hero" />
-                    <h1>Cadastrar novo caso</h1>
-                    <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
+                    <h1>Register new case</h1>
+                    <p>Describe the case with details to be solved by a hero.</p>
                     {/**
                      * Link: redirects user to a link without page's reload.
                      * FiLogIn: an icon in a component format, this icon was
@@ -60,26 +60,29 @@ function NewIncident() {
                     */}
                     <Link className="back-link" to="/profile">
                         <FiArrowLeft size={16} color="#e02041" />
-                        Voltar para a home
+                        Back to homepage
                     </Link>
                 </section>
                 <form onSubmit={handleNewIncident}>
                     <input
-                        placeholder="Título do caso"
+                        placeholder="Name of the case"
                         value={title}
-                        onChange={e => setTitle(e.target.value)} // Updates component state when changed
+                        // Updates component state when changed
+                        onChange={e => setTitle(e.target.value)}
                     />
                     <textarea
-                        placeholder="Descrição"
+                        placeholder="Description"
                         value={description}
-                        onChange={e => setDescription(e.target.value)} // Updates component state when changed
+                        // Updates component state when changed
+                        onChange={e => setDescription(e.target.value)} 
                     />
                     <input
-                        placeholder="Valor em reais"
+                        placeholder="Value in dollar"
                         value={value}
-                        onChange={e => setValue(e.target.value)} // Updates component state when changed
+                        // Updates component state when changed
+                        onChange={e => setValue(e.target.value)}
                     />
-                    <button className="button" type="submit">Cadastrar</button>
+                    <button className="button" type="submit">Register</button>
                 </form>
             </div>
         </div>

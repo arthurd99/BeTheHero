@@ -15,101 +15,104 @@ import logoImg from "../../assets/logo.png"
 
 // Detail component
 function Detail() {
-  // Gets navigation instance, used to navigate between screens
-  const navigation = useNavigation()
+	// Gets navigation instance, used to navigate between screens
+	const navigation = useNavigation()
 
-  // Gets routes instance
-  const route = useRoute()
+	// Gets routes instance
+	const route = useRoute()
 
-  // Gets the incident from the params passed on the last page
-  const incident = route.params.incident
+	// Gets the incident from the params passed on the last page
+	const incident = route.params.incident
 
-  // Default message
-  const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(incident.value)}.`
+	// Default message
+	const message =
+	`Hello ${incident.name}! I'm contacting you in order to support the "${incident.title}" case with ${
+		Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(incident.value)
+	}.`
 
-  // Function used when you touch arrow-left icon, it redirects you to the last screen
-  function navigateBack() {
-    navigation.goBack()
-  }
+	// Function used when you touch arrow-left icon, it redirects you to the last screen
+	function navigateBack() {
+		navigation.goBack()
+	}
 
-  // Function used when you touch e-mail button, it composes a default email
-  function sendMail() {
-    MailComposer.composeAsync({
-      subject: `Herói do caso: ${incident.title}`,
-      recipients: [incident.email],
-      body: message
-    })
-  }
+	// Function used when you touch e-mail button, it composes a default email
+	function sendMail() {
+		MailComposer.composeAsync({
+			subject: `Hero of the case: ${incident.title}`,
+			recipients: [incident.email],
+			body: message
+		})
+	}
 
-  // Function used when you touch whatsapp button, it composes a default whatsapp message
-  function sendWhatsapp() {
-    Linking.openURL(`whatsapp://send?phone=+55${incident.whatsapp}&text=${message}`)
-  }
+	// Function used when you touch whatsapp button, it composes a default whatsapp message
+	function sendWhatsapp() {
+		Linking.openURL(`whatsapp://send?phone=+${incident.whatsapp}&text=${message}`)
+	}
 
-  // Html returned when the component is rendered
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={logoImg} />
+	// Html returned when the component is rendered
+	return (
+		<View style={styles.container}>
+			<View style={styles.header}>
+				<Image source={logoImg} />
 
-        <TouchableOpacity onPress={navigateBack}>
-          <Feather name="arrow-left" size={28} color="#e82041" />
-        </TouchableOpacity>
-      </View>
+				<TouchableOpacity onPress={navigateBack}>
+					<Feather name="arrow-left" size={28} color="#e82041" />
+				</TouchableOpacity>
+			</View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+			<ScrollView showsVerticalScrollIndicator={false}>
 
-        <View style={styles.incident}>
-          <View style={styles.incidentGroups}>
-            <View style={styles.incidentGroup}>
-              <Text style={[styles.incidentProperty, { marginTop: 0 }]}>CASO:</Text>
-              <Text style={[styles.incidentValue, { textAlign: "left" }]}>{incident.title}</Text>
-            </View>
+				<View style={styles.incident}>
+					<View style={styles.incidentGroups}>
+						<View style={styles.incidentGroup}>
+							<Text style={[styles.incidentProperty, { marginTop: 0 }]}>CASE</Text>
+							<Text style={[styles.incidentValue, { textAlign: "left" }]}>
+								{incident.title}
+							</Text>
+						</View>
+						<View style={styles.incidentGroup}>
+							<Text style={[styles.incidentProperty, { marginTop: 0 }]}>
+								NGO
+							</Text>
+							<Text style={styles.incidentValue}>
+								{incident.name} from {incident.city}/{incident.uf}
+							</Text>
+						</View>
+					</View>
+					<Text style={styles.incidentProperty}>DESCRIPTION</Text>
+					<Text style={styles.incidentValue}>{incident.description}</Text>
+					<Text style={styles.incidentProperty}>VALUE</Text>
+					<Text style={styles.incidentValue}>
+						{/*
+						 * Intl is function which formats
+						 * numbers, in this case into USD currency.
+						*/}
+						{Intl.NumberFormat(
+							"en-US",
+							{
+								style: "currency",
+								currency: "USD"
+							}
+						).format(incident.value)}
+					</Text>
+				</View>
 
-            <View style={styles.incidentGroup}>
-              <Text style={[styles.incidentProperty, { marginTop: 0 }]}>ONG:</Text>
-              <Text style={styles.incidentValue}>{incident.name} de {incident.city}/{incident.uf}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.incidentProperty}>DESCRIÇÃO:</Text>
-          <Text style={styles.incidentValue}>{incident.description}</Text>
-
-          <Text style={styles.incidentProperty}>VALOR:</Text>
-          <Text style={styles.incidentValue}>
-            {/*
-             * Intl is function which formats
-             * numbers, in this case into BRL currency.
-            */}
-            {Intl.NumberFormat(
-              "pt-BR",
-              {
-                style: "currency",
-                currency: "BRL"
-              }
-            ).format(incident.value)}
-          </Text>
-        </View>
-
-        <View style={styles.contactBox}>
-          <Text style={styles.heroTitle}>Salve o dia!</Text>
-          <Text style={styles.heroTitle}>Seja o herói desse caso.</Text>
-
-          <Text styles={styles.heroDescription}>Entre em contato:</Text>
-
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
-              <Text style={styles.actionText}>Whatsapp</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.action} onPress={sendMail}>
-              <Text style={styles.actionText}>E-mail</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
-  )
+				<View style={styles.contactBox}>
+					<Text style={styles.heroTitle}>Save the day!</Text>
+					<Text style={styles.heroTitle}>Be the hero of this case.</Text>
+					<Text styles={styles.heroDescription}>Get in touch through:</Text>
+					<View style={styles.actions}>
+						<TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
+							<Text style={styles.actionText}>WhatsApp</Text>
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.action} onPress={sendMail}>
+							<Text style={styles.actionText}>E-mail</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</ScrollView>
+		</View>
+	)
 }
 
 // Exports component

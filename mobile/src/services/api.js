@@ -3,7 +3,9 @@ import axios from "axios"
 
 // Creates an api with axios
 const api = axios.create({
-    baseURL: "http://192.168.0.111:3333"
+    // IMPORTANT!!!!!
+    // baseURL MUST be your computer's IP
+    baseURL: "http://192.168.2.105:3333"
 })
 
 // Exports api

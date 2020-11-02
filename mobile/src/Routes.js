@@ -11,16 +11,16 @@ import Detail from "./pages/Detail"
 
 // Routes component
 function Routes() {
-  // Html returned when the component is rendered
-  return (
-    // NavigationContainer is the main route component, it will alway gonna be outside everything
-    <NavigationContainer>
-      <AppStack.Navigator screenOptions={{ headerShown: false }}>
-        <AppStack.Screen name="Incidents" component={Incidents} />
-        <AppStack.Screen name="Detail" component={Detail} />
-      </AppStack.Navigator>
-    </NavigationContainer>
-  )
+	// Html returned when the component is rendered
+	return (
+		// NavigationContainer is the main route component, it will alway gonna be outside everything
+		<NavigationContainer>
+			<AppStack.Navigator screenOptions={{ headerShown: false }}>
+				<AppStack.Screen name="Incidents" component={ Incidents } />
+				<AppStack.Screen name="Detail" component={ Detail } />
+			</AppStack.Navigator>
+		</NavigationContainer>
+	)
 }
 
 // Exports routes
