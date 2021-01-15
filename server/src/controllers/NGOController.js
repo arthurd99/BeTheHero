@@ -47,7 +47,7 @@ module.exports = {
         // check whether are errors
         let { errors } = validationResult(req)
 
-        if (errors.length || authId) {
+        if (errors.length || !authId) {
             return res.status(422).json(errors)
         }
         

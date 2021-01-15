@@ -11,8 +11,8 @@ router.post(
     "/ngos",
     [ // check if each field's request body is valid
         body('name')
-            .isAlpha()
-            .isLength({min: 3, max: 16}),
+            .isString()
+            .isLength({min: 4, max: 32}),
         body('email')
             .isEmail()
             .isLength({max: 32}),
@@ -21,9 +21,10 @@ router.post(
             .isNumeric()
             .isLength({max: 16}),
         body('city')
-            .isAlpha()
-            .isLength({min: 3, max: 16}),
+            .isString()
+            .isLength({min: 2, max: 32}),
         body('uf')
+            .isString()
             .isAlpha()
             .isLength(2)
     ],
@@ -37,9 +38,9 @@ router.post(
     "/incidents",
     [
         body('title')
-            .isLength({min: 3, max: 32}),
+            .isLength({min: 4, max: 32}),
         body('description')
-            .isLength({min: 3, max: 256}),
+            .isLength({min: 4, max: 512}),
         body('value')
             .isLength({min: 1, max: 8}).withMessage("Monetary value not allowed")
             .isNumeric()
