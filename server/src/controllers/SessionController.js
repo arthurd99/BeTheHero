@@ -18,7 +18,7 @@ module.exports = {
 
         // check if it were returned any registers
         if (!ngo) {
-            return res.status(400).json({error: `No ngos were found with ID ${id}`})
+            return res.status(400).json({error: `No NGOs were found with ID ${id}`})
         }
 
         // returns a json with the registers

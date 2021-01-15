@@ -1,6 +1,7 @@
 // importing module dependencies
-const crypto = require("crypto")
+const { validationResult } = require("express-validator")
 const connection = require("../database/connection")
+const crypto = require("crypto")
 
 // exports a JSON object with routes' actions
 module.exports = {
@@ -8,35 +9,54 @@ module.exports = {
         // select all columns in "ngos" table in a
         const ngos = await connection("ngos").select("*")
         // returns an array of JSONs with the result
-        return res.json(ngos)
+        return res.status(200).json(ngos)
     },
 
     async create(req, res) { // register a new ngo
         // create the following variables from JSON's body request
-        const {name, email, whatsapp, city, uf} = req.body
+        const { name, email, whatsapp, city, uf } = req.body
+        
         // generate a random 4-byte word to be used as ID
         const id = crypto.randomBytes(4).toString("HEX")
+        
+        // check parameters
+        const { errors } = validationResult(req)
+        
+        if (errors.length) {
+            return res.status(422).json(errors)
+        }
 
         // insert values to ngoS table
         await connection("ngos").insert({
-            id, name, email, whatsapp, city, uf
+            id, name, email, whatsapp, city, uf, created_at: Date.now()
+        }).then(_ => {
+            // returns id in order to verify if it has been created
+            return res.status(201).json(id)
+        }).catch(error => {
+            return res.status(406).json(error)
         })
-
-        // returns id in order to verify if it has been created
-        return res.json({id})
     },
 
     async delete(req, res) {
         // get id from URL parameters
         const { id } = req.params
+
         // get ID from request's header
         const authId = req.headers.authorization
+
+        // check whether are errors
+        let { errors } = validationResult(req)
+
+        if (errors.length || authId) {
+            return res.status(422).json(errors)
+        }
+        
         // try to get the register's id from database table
         const ngo = await connection("ngos")
             .select("id")
             .where("id", id)
             .first() // get only the first value from returned array
-
+        
         // check if ID from parameter, from header and from database are the same
         if ((ngo.id !== authId) || (id !== authId)) {
             // returns status 401 (unauthorized) and a JSON the with error message
@@ -49,6 +69,6 @@ module.exports = {
             .where("id", id)
 
         // returns no content status
-        return res.status(204).send()
+        return res.status(410).json({"deleted": id})
     }
 }

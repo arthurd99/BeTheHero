@@ -1,11 +1,8 @@
-// Update with your config settings.
-
 module.exports = {
-
 	development: {
 		client: 'sqlite3',
 		connection: {
-			filename: './src/database/db.sqlite'
+			filename: './src/database/database.sqlite'
 		},
 		migrations: {
 			directory: './src/database/migrations'
@@ -28,13 +25,14 @@ module.exports = {
 			tableName: 'knex_migrations'
 		}
 	},
-
+	
 	production: {
 		client: 'postgresql',
 		connection: {
-			database: 'my_db',
-			user:     'username',
-			password: 'password'
+			host:		process.env.DB_HOST,
+			database:	process.env.DB_DATABASE,
+			user:		process.env.DB_USER,
+			password:	process.env.DB_PASSWORD
 		},
 		pool: {
 			min: 2,
@@ -44,5 +42,4 @@ module.exports = {
 			tableName: 'knex_migrations'
 		}
 	}
-
-};
+}

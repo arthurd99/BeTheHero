@@ -1,12 +1,15 @@
 /.vscode
 
+/mobile/.env
 /mobile/.expo
 /mobile/node_modules/
 /mobile/package-lock.json
 
+/server/.env
 /server/node_modules/
 /server/package-lock.json
-/server/src/database/db.sqlite
+/server/src/database/database.sqlite
 
+/web/.env
 /web/node_modules/
 /web/package-lock.json

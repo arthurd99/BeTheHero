@@ -49,6 +49,10 @@ Then you'll be able to install the modules.
 
 `> npm install`
 
+Now you need to create the tables in database
+
+`> npx knex migrate:latest`
+
 Now you're you can run the server.
 
 `> npm start`

@@ -17,6 +17,10 @@ function Profile() {
 	// get history instance
 	const history = useHistory()
 
+	if (!ngoId) {
+		history.push('/')
+	}
+
 	/**
 	 * useEffect is a function that is called when something changes,
 	 * in this case, when ngoId change. So it's just called once in the app

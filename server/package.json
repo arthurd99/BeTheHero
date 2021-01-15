@@ -3,17 +3,19 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node src/bin/www"
+		"start": "node -r dotenv/config src/bin/www"
 	},
 	"dependencies": {
 		"cookie-parser": "~1.4.4",
 		"debug": "~2.6.9",
 		"express": "~4.16.1",
+		"express-validator": "^6.9.2",
 		"knex": "^0.20.13",
 		"morgan": "~1.9.1",
-		"sqlite3": "^4.1.1"
+		"sqlite3": "^5.0.1"
 	},
 	"devDependencies": {
-		"cors": "^2.8.5"
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0"
 	}
 }

@@ -8,7 +8,11 @@ module.exports = {
         const { page = 1 } = req.query
 
         // get id from URL parameters
-        const ngoId = req.headers.authorization // who's creating the incident
+        const ngoId = req.headers.authorization // who's accessing the incidents
+
+        if (!ngoId) {
+            return res.status(401)
+        }
 
         // Counts every case in the database
         const [count] = await connection('incidents').where('ngo_id', ngoId).count()

@@ -1,4 +1,5 @@
 // importing module dependencies
+const { validationResult } = require("express-validator")
 const connection = require("../database/connection")
 
 // exports a JSON object with routes' actions
@@ -9,12 +10,21 @@ module.exports = {
         // get ID from request's header
         const authId = req.headers.authorization // who's creating the incident
 
+        // check parameters
+        const { errors } = validationResult(req)
+        
+        if (errors.length) {
+            return res.status(422).json(errors)
+        }
+
         // get ID from database inserted register array
         const [ id ] = await connection("incidents").insert({
             title,
             description,
             value,
-            ngo_id: authId
+            ngo_id: authId,
+            created_at: Date.now(),
+            updated_at: Date.now()
         })
 
         // return ID from created incident

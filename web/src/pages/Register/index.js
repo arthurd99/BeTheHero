@@ -23,22 +23,20 @@ function Register() {
 		event.preventDefault()
 
 		// get input data from form
-		const data = {
-			name,
-			email,
-			whatsapp,
-			city,
-			uf
-		}
-		try {
-			// try to create a new NGO
-			const response = await api.post("/ngos", data)
-			alert(`Your access ID: ${response.data.id}`)
+		const data = { name, email, whatsapp, city, uf }
 
-			// redirect user to login page
-			history.push('/')
+		try { // try to create a new NGO
+			const response = await api.post('/ngos', data)
+
+			if (response.status !== 201) {
+				return alert(`ERROR ${response.status}: ${response.statusText}`)
+			} else {
+				console.log(`Your login code is: ${response.data}`)
+				alert(`Your access ID: ${response.data}`)
+				return history.push('/') // redirect user to login page
+			}
 		} catch (error) {
-			alert(error)
+			return alert(error.args)
 		}
 	}
 
