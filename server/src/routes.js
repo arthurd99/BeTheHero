@@ -54,7 +54,14 @@ router.delete("/incidents/:id", incidentController.delete) // delete an incident
 router.get("/profile", profileController.index) // list incidents of an ngo
 
 // controlling Session routes
-router.post("/sessions", sessionController.create
+router.post(
+    "/sessions",
+    [
+        body('id')
+            .isLength(8)
+            .withMessage("ID length does not match")
+    ],
+    sessionController.create
 ) // check ngo's login
 
 // exports module's router
