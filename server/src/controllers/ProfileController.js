@@ -10,22 +10,18 @@ module.exports = {
         // get id from URL parameters
         const ngoId = req.headers.authorization // who's accessing the incidents
 
-        if (!ngoId) {
-            return res.status(401)
-        }
-
         // Counts every case in the database
         const [count] = await connection('incidents').where('ngo_id', ngoId).count()
 
         // try to get the register's incidents from database table
         const incidents = await connection("incidents")
-            .select("*")
+            .select()
             .where("ngo_id", ngoId)
             .limit(5)
             .offset((page - 1) * 5)
-            .catch(err => {
+            .catch(error => {
                 // returns not found error and the corresponding message
-                return res.status(404).json({error: err.args})
+                return res.status(404).json({ error: error.args })
             })
 
         res.header('X-Total-Count', count['count(*)']);

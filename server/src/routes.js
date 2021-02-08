@@ -12,18 +12,18 @@ router.post(
     [ // check if each field's request body is valid
         body('name')
             .isString()
-            .isLength({min: 4, max: 32}),
+            .isLength({ min: 4, max: 32 }),
         body('email')
             .isEmail()
-            .isLength({max: 32}),
+            .isLength({ max: 32 }),
         body('whatsapp')
             .isMobilePhone()
             .isNumeric()
-            .isLength({max: 16}),
+            .isLength({ max: 16 }),
         body('city')
             .isString()
-            .isLength({min: 2, max: 32}),
-        body('uf')
+            .isLength({ min: 2, max: 32 }),
+        body('state')
             .isString()
             .isAlpha()
             .isLength(2)
@@ -38,11 +38,11 @@ router.post(
     "/incidents",
     [
         body('title')
-            .isLength({min: 4, max: 32}),
+            .isLength({ min: 4, max: 32 }),
         body('description')
-            .isLength({min: 4, max: 512}),
+            .isLength({ min: 4, max: 512 }),
         body('value')
-            .isLength({min: 1, max: 8}).withMessage("Monetary value not allowed")
+            .isLength({ min: 1, max: 8 }).withMessage("Monetary value not allowed")
             .isNumeric()
     ],
     incidentController.create

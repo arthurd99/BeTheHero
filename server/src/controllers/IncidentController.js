@@ -9,6 +9,12 @@ module.exports = {
         const { title, description, value } = req.body
         // get ID from request's header
         const authId = req.headers.authorization // who's creating the incident
+        console.log(authId)
+
+
+        if (!authId) {
+            return res.status(403).json({ error: "you are not logged in" })
+        }
 
         // check parameters
         const { errors } = validationResult(req)
@@ -22,9 +28,7 @@ module.exports = {
             title,
             description,
             value,
-            ngo_id: authId,
-            created_at: Date.now(),
-            updated_at: Date.now()
+            ngo_id: authId
         })
 
         // return ID from created incident
@@ -35,7 +39,7 @@ module.exports = {
         // get page's parameter value. get 1 if any page param exists
         const { page = 1 } = req.query
         // get the amount of register existent in "incident"'s and get only the JSON
-        const [count] = await connection("incidents").count()
+        const [ count ] = await connection("incidents").count()
         // amount of registers per page
         const limPage = 5
 
@@ -48,7 +52,7 @@ module.exports = {
                 "ngos.email",
                 "ngos.whatsapp",
                 "ngos.city",
-                "ngos.uf"
+                "ngos.state"
             ])
             // join "ngos" columns table with "incident" columns table through their primary/foreign keys
             .join("ngos", "ngos.id", "=", "incidents.ngo_id")
@@ -64,7 +68,7 @@ module.exports = {
         // returns the JSON with the selected amount registers
         return res.json(incidents)
     },
-
+    
     async delete(req, res) {
         // get id from URL parameters
         const { id } = req.params
@@ -79,7 +83,7 @@ module.exports = {
         // check if ID from header and from database are the same
         if (incident.ngo_id !== ngoId) {
             // returns status 401 (unauthorized) and a JSON the with error message
-            return res.status(401).json({error: "Operation not allowed"})
+            return res.status(401).json({ error: "You must be logged in" })
         }
 
         // delete register from database where id's table is the same from URL
@@ -88,6 +92,6 @@ module.exports = {
             .delete()
 
         // returns no content status
-        return res.status(204).send()
+        return res.status(204).json({ deleted: id })
     }
 }

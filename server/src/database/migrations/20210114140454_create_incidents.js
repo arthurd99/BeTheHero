@@ -6,11 +6,11 @@ exports.up = knex => {
         table.string('title').notNullable()
         table.string('description').notNullable()
         table.decimal('value').notNullable()
+        table.timestamp('created_at').defaultTo(knex.fn.now())
+        table.timestamp('updated_at').defaultTo(knex.fn.now())
         // creates a foreign key 'ngo_id' that references the column 'id' from 'ngos' table
         table.string('ngo_id').notNullable()
         table.foreign('ngo_id').references('id').inTable('ngos')
-        table.timestamp('created_at')
-        table.timestamp('updated_at')
     })
 }
 

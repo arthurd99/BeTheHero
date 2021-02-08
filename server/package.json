@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node -r dotenv/config src/bin/www"
+		"start": "node -r dotenv/config src/bin/www",
+		"test": "nodemon -r dotenv/config src/bin/www"
 	},
 	"dependencies": {
 		"cookie-parser": "~1.4.4",
@@ -12,10 +13,12 @@
 		"express-validator": "^6.9.2",
 		"knex": "^0.20.13",
 		"morgan": "~1.9.1",
+		"mysql": "^2.18.1",
 		"sqlite3": "^5.0.1"
 	},
 	"devDependencies": {
 		"cors": "^2.8.5",
-		"dotenv": "^8.2.0"
+		"dotenv": "^8.2.0",
+		"nodemon": "^2.0.7"
 	}
 }

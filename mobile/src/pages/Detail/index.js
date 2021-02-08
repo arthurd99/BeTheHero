@@ -75,7 +75,7 @@ function Detail() {
 								NGO
 							</Text>
 							<Text style={styles.incidentValue}>
-								{incident.name} from {incident.city}/{incident.uf}
+								{incident.name} from {incident.city}/{incident.state}
 							</Text>
 						</View>
 					</View>

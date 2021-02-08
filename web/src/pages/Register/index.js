@@ -12,7 +12,7 @@ function Register() {
 	const [email, setEmail] = useState("")
 	const [whatsapp, setWhatsapp] = useState("")
 	const [city, setCity] = useState("")
-	const [uf, setUf] = useState("")
+	const [state, setState] = useState("")
 
 	// get history instance
 	const history = useHistory()
@@ -23,7 +23,7 @@ function Register() {
 		event.preventDefault()
 
 		// get input data from form
-		const data = { name, email, whatsapp, city, uf }
+		const data = { name, email, whatsapp, city, state }
 
 		try { // try to create a new NGO
 			const response = await api.post('/ngos', data)
@@ -88,9 +88,9 @@ function Register() {
 						<input
 							placeholder="ST"
 							style={{ width: 80 }}
-							value={uf}
+							value={ state }
 							// Updates component state when changed
-							onChange={e => setUf(e.target.value)}
+							onChange={e => setState(e.target.value)}
 						/>
 					</div>
 					<button className="button" type="submit">Subscribe</button>

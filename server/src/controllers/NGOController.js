@@ -7,28 +7,28 @@ const crypto = require("crypto")
 module.exports = {
     async index(req, res) { // list all ngos existent in database
         // select all columns in "ngos" table in a
-        const ngos = await connection("ngos").select("*")
+        const ngos = await connection("ngos").select()
         // returns an array of JSONs with the result
         return res.status(200).json(ngos)
     },
 
     async create(req, res) { // register a new ngo
         // create the following variables from JSON's body request
-        const { name, email, whatsapp, city, uf } = req.body
+        const { name, email, whatsapp, city, state } = req.body
         
         // generate a random 4-byte word to be used as ID
         const id = crypto.randomBytes(4).toString("HEX")
         
         // check parameters
         const { errors } = validationResult(req)
-        
+
         if (errors.length) {
             return res.status(422).json(errors)
         }
 
         // insert values to ngoS table
         await connection("ngos").insert({
-            id, name, email, whatsapp, city, uf, created_at: Date.now()
+            id, name, email, whatsapp, city, state
         }).then(_ => {
             // returns id in order to verify if it has been created
             return res.status(201).json(id)
@@ -69,6 +69,6 @@ module.exports = {
             .where("id", id)
 
         // returns no content status
-        return res.status(410).json({"deleted": id})
+        return res.status(410).json({ deleted: id })
     }
 }

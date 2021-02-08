@@ -34,7 +34,7 @@ function NewIncident() {
             // try to create a new incident
             await api.post("/incidents", data, {
               headers: {
-                Authorization: ngoId
+                authorization: ngoId
               }
             })
 

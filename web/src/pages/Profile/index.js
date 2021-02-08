@@ -30,7 +30,7 @@ function Profile() {
 		// gets all incidents from the specific ngo
 		api.get("/profile", {
 			headers: {
-			  Authorization: ngoId
+				authorization: ngoId
 			}
 		}).then(response => {
 			// stores the incidents into incidents state
@@ -44,7 +44,7 @@ function Profile() {
 			// try to delete the specific incident
 			await api.delete(`/incidents/${id}`, {
 				headers: {
-				  Authorization: ngoId
+					authorization: ngoId
 				}
 			})
 			// update incidents state
