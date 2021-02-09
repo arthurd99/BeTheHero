@@ -92,6 +92,6 @@ module.exports = {
             .delete()
 
         // returns no content status
-        return res.status(204).json({ deleted: id })
+        return res.status(204).json({ id: id })
     }
 }

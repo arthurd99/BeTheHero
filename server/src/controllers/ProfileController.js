@@ -11,12 +11,12 @@ module.exports = {
         const ngoId = req.headers.authorization // who's accessing the incidents
 
         // Counts every case in the database
-        const [count] = await connection('incidents').where('ngo_id', ngoId).count()
+        const [ count ] = await connection('incidents').where('ngo_id', ngoId).count()
 
         // try to get the register's incidents from database table
         const incidents = await connection("incidents")
             .select()
-            .where("ngo_id", ngoId)
+            .where('ngo_id', ngoId)
             .limit(5)
             .offset((page - 1) * 5)
             .catch(error => {

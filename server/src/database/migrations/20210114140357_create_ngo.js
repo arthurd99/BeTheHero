@@ -3,6 +3,8 @@ exports.up = knex => {
     // creates a table in database with the following features
     return knex.schema.createTable('ngos', table => {
         table.string('id').primary().unique()
+        table.string('login').notNullable().unique()
+        table.string('password').notNullable().unique()
         table.string('name').notNullable()
         table.string('email').notNullable().unique()
         table.string('whatsapp').notNullable().unique()
